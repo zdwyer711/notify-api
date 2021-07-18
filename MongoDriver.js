@@ -24,7 +24,7 @@ class mongoDriver {
       MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("Notify");
-        var newvalues = { $set: { status:  subscriptionStatus } };
+        var newvalues = { $set: { subscribed:  subscriptionStatus } };
         dbo.collection("Users").updateOne({ id: userId }, newvalues, function(err, res) {
           if (err) throw err;
           console.log("1 document updated");

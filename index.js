@@ -10,16 +10,22 @@ app.get('/', function (req, res) {
  })
 
  app.get('/notify/v1/subscription', function (req, res) {
-
-    if(req.query.id === "007" && req.query.subscription){
-      //TODO: Update user collection in monogdb and set
-      //property of subscribed to false
-      mongoDriver._updateSubscriptionStatus(req.query.id);
-      res.send('User subscription status set!');
-
-    }
     return getUserList(res);
+})
 
+app.post('/notify/v1/subscription', function (req, res) {
+  console.log(req);
+   if(req.query.id === "007"){
+     //TODO: Update user collection in monogdb and set
+     //property of subscribed to false
+
+     return updateUserSubscriptionStatus(req, res);
+   }
+   const noUpdate = {
+     "success": "false",
+     "messsage": "No user updated"
+   }
+   res.send(noUpdate);
 })
 
 
@@ -43,4 +49,10 @@ async function getUserList(res){
       userList.push(userObj);
     });
     res.send(userList);
+}
+
+async function updateUserSubscriptionStatus(req, res){
+  console.log('Update subscription Hit!');
+  await mongoDriver._updateSubscriptionStatus(req.query.id, req.query.subscription);
+  res.send('User subscription status set!');
 }
