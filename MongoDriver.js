@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const mongodb = require('mongodb');
-//const url = "mongodb://localhost:27017/Pnyx";
-const url = "mongodb://52.170.188.135:27017/Pnyx"
+const url = "mongodb://localhost:27017/Pnyx";
+//const url = "mongodb://52.170.188.135:27017/Pnyx"
 const client = new MongoClient(url);
 
 class mongoDriver {
