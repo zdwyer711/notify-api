@@ -16,11 +16,7 @@ app.get('/', function (req, res) {
 })
 
 app.post('/notify/v1/subscription', function (req, res) {
-  console.log(req);
    if(req.query.id === "007"){
-     //TODO: Update user collection in monogdb and set
-     //property of subscribed to false
-
      return updateUserSubscriptionStatus(req, res);
    }
    const noUpdate = {
