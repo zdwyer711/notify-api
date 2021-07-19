@@ -27,13 +27,14 @@ app.post('/notify/v1/subscription', function (req, res) {
 })
 
 
-https.createServer({
-  key: fs.readFileSync('server.key'),
-  cert: fs.readFileSync('server.cert')
-}, app).listen(8080, function () {
+// https.createServer({
+//   key: fs.readFileSync('server.key'),
+//   cert: fs.readFileSync('server.cert')
+// }, app)
+const server = app.listen(8080, function () {
 
-   // var host = server.address().address
-   // var port = server.address().port
+   var host = server.address().address
+   var port = server.address().port
 
    console.log('Service is running on port 8080!/')
 })
@@ -55,6 +56,11 @@ async function getUserList(res){
 
 async function updateUserSubscriptionStatus(req, res){
   console.log('Update subscription Hit!');
-  await mongoDriver._updateSubscriptionStatus(req.query.id, req.query.subscription);
+  if(req.query.subscription === "false"){
+    await mongoDriver._updateSubscriptionStatus(req.query.id, false);
+  } else {
+    await mongoDriver._updateSubscriptionStatus(req.query.id, true);
+  }
+
   res.send('User subscription status set!');
 }
