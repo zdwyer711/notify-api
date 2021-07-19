@@ -29,11 +29,15 @@ app.post('/notify/v1/subscription', function (req, res) {
 })
 
 
-const server = app.listen(8080, function () {
-   var host = server.address().address
-   var port = server.address().port
+https.createServer({
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.cert')
+}, app).listen(8080, function () {
 
-   console.log('Server running at http://127.0.0.1:8080/')
+   // var host = server.address().address
+   // var port = server.address().port
+
+   console.log('Service is running on port 8080!/')
 })
 
 
